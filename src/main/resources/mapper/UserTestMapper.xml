@@ -4,7 +4,7 @@
     <sql id="BASE_TABLE">t_user</sql>
 
     <sql id="BASE_COLUMN">userId,userName,password,phone</sql>
-
+    <!--增-->
     <insert id="insert" parameterType="cn.suancloud.model.UserTest">
         INSERT INTO
         <include refid="BASE_TABLE"/>
@@ -21,7 +21,7 @@
             </if>
         </trim>
     </insert>
-
+    <!--查-->
     <select id="selectUsers" resultType="cn.suancloud.model.UserTest">
         SELECT
         <include refid="BASE_COLUMN"/>

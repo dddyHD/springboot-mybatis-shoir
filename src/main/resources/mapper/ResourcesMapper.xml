@@ -1,0 +1,15 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.suancloud.dao.ResourcesDao">
+    <sql id="BASE_TABLE">t_resources</sql>
+    <sql id="BASE_COLUMN">id,name,res_url,method</sql>
+
+    <select id="loadUserResources" resultType="cn.suancloud.model.Resources">
+        SELECT res.* FROM t_user u
+        LEFT JOIN t_user_role ur ON ur.user_id=u.id
+        LEFT JOIN t_role r ON ur.role_id=r.id
+        LEFT JOIN t_role_resources rr ON rr.role_id=r.id
+        LEFT JOIN t_resources res ON res.id=rr.resources_id
+    </select>
+
+</mapper>

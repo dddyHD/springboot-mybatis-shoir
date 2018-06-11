@@ -11,7 +11,7 @@ import cn.suancloud.model.UserTest;
 import cn.suancloud.service.UserTestService;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/usertest")
 public class UserTestController {
   @Autowired
   private UserTestService userTestService;
