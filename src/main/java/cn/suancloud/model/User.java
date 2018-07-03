@@ -1,6 +1,11 @@
 package cn.suancloud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * create User  Entity class
@@ -14,6 +19,8 @@ public class User implements Serializable {
   private String username;
 
   private String password;
+  @JsonIgnore
+  private Set<Role> roles = new HashSet<>();
 
   public Long getId() {
     return id;
@@ -37,5 +44,13 @@ public class User implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Set<Role> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(Set<Role> roles) {
+    this.roles = roles;
   }
 }

@@ -1,9 +1,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.suancloud.dao.UserDao">
-    <sql id="BASE_TABLE">t_user</sql>
+    <sql id="BASE_TABLE">user</sql>
     <sql id="BASE_COLUMN">id,username,password</sql>
+    <resultMap id="usersMap" type="cn.suancloud.model.User">
+        <result property="id" column="id"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <collection property="roles" column="id" javaType="java.util.Set" select="select_roles"/>
+    </resultMap>
+    <resultMap id="roleMap" type="cn.suancloud.model.Role">
+        <result property="id" column="id"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <collection property="permissions" column="id" javaType="java.util.Set"
+                    select="select_permission"/>
+    </resultMap>
+    <resultMap id="permissionMap" type="cn.suancloud.model.Permission">
+        <result property="id" column="id"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="res_url" column="res_url" jdbcType="VARCHAR"/>
+        <result property="method" column="method" jdbcType="VARCHAR"/>
+    </resultMap>
 
+    <!--增-->
     <insert id="insert" parameterType="cn.suancloud.model.User">
         INSERT INTO
         <include refid="BASE_TABLE"/>
@@ -14,12 +33,45 @@
             #{ username,jdbcType=VARCHAR },#{ password, jdbcType=VARCHAR}
         </trim>
     </insert>
+    <!--删-->
+    <!--改-->
 
-    <select id="selectByUsername" parameterType="String" resultType="cn.suancloud.model.User">
-        SELECT
+    <!--查-->
+    <select id="userList" resultType="cn.suancloud.model.User">
+        select
         <include refid="BASE_COLUMN"/>
-        FROM
+        from
         <include refid="BASE_TABLE"/>
-        WHERE username=#{username}
+    </select>
+    <select id="userDetails" parameterType="Long" resultType="cn.suancloud.model.User">
+        select
+        <include refid="BASE_COLUMN"/>
+        from
+        <include refid="BASE_TABLE"/>
+        where id = #{id}
+    </select>
+
+    <!--<select id="selectByUsername" parameterType="String" resultType="cn.suancloud.model.User">-->
+    <!--SELECT-->
+    <!--<include refid="BASE_COLUMN"/>-->
+    <!--FROM-->
+    <!--<include refid="BASE_TABLE"/>-->
+    <!--WHERE username=#{username}-->
+    <!--</select>-->
+    <select id="select_permission" resultMap="permissionMap"
+            parameterType="java.lang.Integer">
+        select id, name, res_url from permission where id in (
+          select rp.permission_id from role_permission rp where rp.role_id=#{id}
+        )
+    </select>
+    <select id="select_roles" resultMap="roleMap"
+            parameterType="java.lang.Integer">
+        select id, name from role where id in (
+          select ur.role_id from user_role ur where ur.user_id=#{id}
+        )
+    </select>
+
+    <select id="selectByUsername" parameterType="String" resultMap="usersMap">
+        select id,username,password from user where username=#{username}
     </select>
 </mapper>

@@ -1,3 +1,7 @@
 1、springboot2 为基础构架
 2、采用mybatis与数据库交互
 3、数据库版本控制采用flyway
+4、安全框架采用shoir
+
+* 需要优化一下 数据库表的名字 resource改为permissions
+** resource表的字段也需要修改为permission 格式应为 XXX.add ,XXX.del,XXX,edit , XXX.sel ,XXX.* ,XXX......

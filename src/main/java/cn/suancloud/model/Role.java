@@ -1,6 +1,8 @@
 package cn.suancloud.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * create Role  Entity class
@@ -12,6 +14,8 @@ public class Role implements Serializable {
   private Long id;
 
   private String name;
+
+  private Set<Permission> permissions = new HashSet<>();
 
   public Long getId() {
     return id;
@@ -27,5 +31,13 @@ public class Role implements Serializable {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Set<Permission> getPermissions() {
+    return permissions;
+  }
+
+  public void setPermissions(Set<Permission> permissions) {
+    this.permissions = permissions;
   }
 }

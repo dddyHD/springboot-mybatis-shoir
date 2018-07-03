@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author gin
  * @version 2018.6.6
  */
-public class Resources implements Serializable {
+public class Permission implements Serializable {
 
   private Long id;
 
@@ -15,7 +15,7 @@ public class Resources implements Serializable {
 
   private String res_url;
 
-  private String method;
+
 
   public Long getId() {
     return id;
@@ -39,13 +39,5 @@ public class Resources implements Serializable {
 
   public void setRes_url(String res_url) {
     this.res_url = res_url;
-  }
-
-  public String getMethod() {
-    return method;
-  }
-
-  public void setMethod(String method) {
-    this.method = method;
   }
 }
