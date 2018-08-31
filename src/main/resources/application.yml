@@ -47,3 +47,9 @@ pagehelper:
     params: count=countSql
     returnPageInfo: check
 
+logging:
+  level:
+    root: INFO
+    cn:
+      suancloud:
+        dao: debug

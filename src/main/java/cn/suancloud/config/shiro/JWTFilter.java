@@ -1,5 +1,6 @@
 package cn.suancloud.config.shiro;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,8 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
    */
   @Override
   protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
-    return ((HttpServletRequest) request).getHeader("Authorization") != null;
+//    return ((HttpServletRequest) request).getHeader("Authorization") != null;
+    return StringUtils.isNotEmpty(getAuthzHeader(request));
   }
 
   @Override
@@ -47,14 +49,15 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
    */
   @Override
   protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-    if (isLoginAttempt(request, response)) {
-      try {
-        executeLogin(request, response);
-      } catch (Exception e) {
-        response401(request, response);
-      }
-    }
-    return true;
+//    if (isLoginAttempt(request, response)) {
+//      try {
+//        executeLogin(request, response);
+//      } catch (Exception e) {
+//        response401(request, response);
+//      }
+//    }
+//    return true;
+    return false;
   }
 
   /**

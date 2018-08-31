@@ -26,9 +26,6 @@ public class ShiroRealm extends AuthorizingRealm {
   @Autowired
   private UserService userService;
 
-  @Autowired
-  private PermissionService permissionService;
-
   @Override
   public boolean supports(AuthenticationToken token) {
     return token instanceof JWTToken;

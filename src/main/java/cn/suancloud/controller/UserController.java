@@ -4,6 +4,7 @@ package cn.suancloud.controller;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,8 @@ public class UserController extends BaseController {
   @GetMapping("/")
   @RequiresPermissions(logical = Logical.OR, value = {"user.*", "user.list"})
   public ResponseBean userList() {
+    userService.userList();
+    userService.userList();
     return new ResponseBean(userService.userList());
   }
 
@@ -38,8 +41,8 @@ public class UserController extends BaseController {
    */
   @GetMapping("/{id}")
   @RequiresPermissions(logical = Logical.OR, value = {"user.*", "user.details"})
-  public ResponseBean userDetails(@PathVariable("id") Long id) {
-    return new ResponseBean(userService.userDetails(id));
+  public ResponseEntity userDetails(@PathVariable("id") Long id) {
+    return ResponseEntity.ok("");
   }
 
   @PostMapping("/")
